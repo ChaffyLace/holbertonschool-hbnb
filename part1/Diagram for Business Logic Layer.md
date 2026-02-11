@@ -1,4 +1,5 @@
 ```mermaid
+
 classDiagram
 direction LR
     class BaseEntity {
