@@ -49,7 +49,7 @@ direction LR
 	    +delete()
     }
 
-	<<abstract>> BaseEntity
+	 BaseEntity
 
     BaseEntity <|-- User
     BaseEntity <|-- Place
