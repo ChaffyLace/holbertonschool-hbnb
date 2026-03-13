@@ -1,16 +1,16 @@
+from app import db
 from app.models.base import BaseModel
 
 class Amenity(BaseModel):
-    def __init__(self, name):
-        super().__init__()
+    __tablename__ = 'amenities'
+
+    name = db.Column(db.String(50), nullable=False)
+
+    def __init__(self, name, **kwargs):
+        super().__init__(**kwargs)
+        self.validate_name(name)
         self.name = name
 
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, value):
+    def validate_name(self, value):
         if not value or len(value) > 50:
-            raise ValueError("Name is required and must be max 50 characters.")
-        self._name = value
+            raise ValueError("Amenity name is required and max 50 characters.")
