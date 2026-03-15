@@ -32,6 +32,7 @@ class InMemoryRepository(Repository):
 
     def add(self, obj):
         self._storage[obj.id] = obj
+        return obj
 
     def get(self, obj_id):
         return self._storage.get(obj_id)
@@ -43,6 +44,7 @@ class InMemoryRepository(Repository):
         obj = self.get(obj_id)
         if obj:
             obj.update(data)
+        return obj
 
     def delete(self, obj_id):
         if obj_id in self._storage:
@@ -59,6 +61,7 @@ class SQLAlchemyRepository(Repository):
     def add(self, obj):
         db.session.add(obj)
         db.session.commit()
+        return obj
 
     def get(self, obj_id):
         return self.model.query.get(obj_id)
@@ -72,6 +75,7 @@ class SQLAlchemyRepository(Repository):
             for key, value in data.items():
                 setattr(obj, key, value)
             db.session.commit()
+        return obj
 
     def delete(self, obj_id):
         obj = self.get(obj_id)
