@@ -1,8 +1,11 @@
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import create_access_token
+from app.services import facade
+from flask_bcrypt import check_password_hash
 
 api = Namespace('auth', description='Opérations d\'authentification')
 
+# Modèle pour Swagger
 login_model = api.model('Login', {
     'email': fields.String(required=True, description='Email de l\'utilisateur'),
     'password': fields.String(required=True, description='Mot de passe de l\'utilisateur')
@@ -14,12 +17,15 @@ class LoginResource(Resource):
     def post(self):
         """Authentifie un utilisateur et retourne un token JWT"""
         data = api.payload
-        email = data.get('email')
-        password = data.get('password')
+        user = facade.get_user_by_email(data['email'])
 
-        if email == "admin@hbnb.io" and password == "admin123":
-            # On crée un token avec les droits admin
-            access_token = create_access_token(identity={'email': email, 'is_admin': True})
+        # Vérification sécurisée avec Bcrypt
+        if user and check_password_hash(user.password, data['password']):
+            # On crée le token avec l'email et le statut admin
+            access_token = create_access_token(
+                identity={'email': user.email, 'is_admin': user.is_admin}
+            )
             return {'access_token': access_token}, 200
         
+        # Si l'utilisateur n'existe pas ou le mot de passe est faux
         return {'msg': 'Email ou mot de passe invalide'}, 401
