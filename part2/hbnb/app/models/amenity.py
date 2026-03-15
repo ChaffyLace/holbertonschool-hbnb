@@ -2,7 +2,7 @@ from app import db
 from app.models.base import BaseModel
 
 class Amenity(BaseModel):
-    __tablename__ = 'amenities'
+    __tablename__ = 'Amenity'
 
     name = db.Column(db.String(50), nullable=False)
 
