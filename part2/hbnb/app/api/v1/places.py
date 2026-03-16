@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
-
+from flask_jwt_extended import jwt_required
 api = Namespace('places', description='Place operations')
 
 place_model = api.model('Place', {
@@ -14,6 +14,8 @@ place_model = api.model('Place', {
 
 @api.route('/')
 class PlaceList(Resource):
+    
+    @jwt_required() 
     @api.expect(place_model, validate=False)
     def post(self):
         """Register a new place"""
@@ -44,7 +46,7 @@ class PlaceList(Resource):
 @api.route('/<place_id>')
 class PlaceResource(Resource):
     def get(self, place_id):
-        # Nouveau : Récupère les détails complets incluant owner, amenities et reviews
+        # Récupère les détails complets incluant owner, amenities et reviews
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
@@ -74,9 +76,10 @@ class PlaceResource(Resource):
             ]
         }, 200
 
-# Nouveau : Route pour lier une Amenity à une Place (Essentiel Task 8)
 @api.route('/<place_id>/amenities/<amenity_id>')
 class PlaceAmenityLink(Resource):
+    
+    @jwt_required()
     def post(self, place_id, amenity_id):
         """Link an amenity to a place"""
         try:
