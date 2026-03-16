@@ -15,8 +15,8 @@ place_model = api.model('Place', {
 @api.route('/')
 class PlaceList(Resource):
     
-    @jwt_required() 
     @api.expect(place_model, validate=False)
+    @jwt_required() 
     def post(self):
         """Register a new place"""
         place_data = api.payload
