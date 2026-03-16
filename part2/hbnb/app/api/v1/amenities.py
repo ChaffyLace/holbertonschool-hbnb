@@ -51,8 +51,15 @@ class AmenityResource(Resource):
     @api.response(200, 'Amenity updated successfully')
     @api.response(404, 'Amenity not found')
     @api.response(400, 'Invalid input data')
+    @api.response(403, 'Admin privilege required') 
+    @jwt_required()
     def put(self, amenity_id):
         """Update an amenity's information"""
+        
+        claims = get_jwt()
+        if not claims.get('is_admin'):
+            return {'error': 'Admin privilege required'}, 403
+
         amenity_data = api.payload
         amenity = facade.get_amenity(amenity_id)
         
