@@ -1,6 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_jwt_extended.exceptions import NoAuthorizationError
 
 api = Namespace('places', description='Place operations')
@@ -52,7 +52,6 @@ class PlaceList(Resource):
 @api.route('/<place_id>')
 class PlaceResource(Resource):
     def get(self, place_id):
-        # Récupère les détails complets incluant owner, amenities et reviews
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
@@ -81,6 +80,31 @@ class PlaceResource(Resource):
                 } for r in place.reviews
             ]
         }, 200
+
+    # --- NOUVELLE MÉTHODE PUT SÉCURISÉE ---
+    @api.expect(place_model, validate=False)
+    @api.response(200, 'Place updated successfully')
+    @api.response(404, 'Place not found')
+    @api.response(400, 'Invalid input data')
+    @api.response(403, 'Unauthorized action')
+    @jwt_required()
+    def put(self, place_id):
+        """Update a place's information (Only for the owner)"""
+        current_user_id = get_jwt_identity()
+        place = facade.get_place(place_id)
+
+        if not place:
+            return {'error': 'Place not found'}, 404
+
+        if str(place.owner.id) != str(current_user_id):
+            return {'error': 'Unauthorized action'}, 403
+
+        place_data = api.payload
+        try:
+            facade.update_place(place_id, place_data)
+            return {'message': 'Place updated successfully'}, 200
+        except ValueError as e:
+            return {'error': str(e)}, 400
 
 @api.route('/<place_id>/amenities/<amenity_id>')
 class PlaceAmenityLink(Resource):
