@@ -69,7 +69,7 @@ Most endpoints now require an `Authorization: Bearer <token>` header. Here is a 
 |---|---|---|---|
 | **Authentication** | `POST /auth/login` | **Public** | Returns a JWT access token. |
 | **Users** | `POST /users/` | **Public** | Account registration. |
-| **Users** | `GET /users/` | **Admin Only** | Only admins can list all users. |
+| **Users** | `GET /users/` | **Public** | Retrieve a list of all registered users. |
 | **Places** | `POST /places/` | **Authenticated** | Any logged-in user can create a place. |
 | **Places** | `PUT /places/<id>` | **Owner Only** | Must be the exact user who created the place. |
 | **Amenities** | `POST /amenities/` | **Admin Only** | Only admins can manage the amenity catalog. |
