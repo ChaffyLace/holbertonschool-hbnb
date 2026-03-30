@@ -109,3 +109,6 @@ def put(self, place_id):
 * **Flask-Bcrypt** (Cryptographic Password Hashing)
 * **Flask-JWT-Extended** (Token Generation and Validation)
 * **SQLite** (Relational Database Engine)
+
+  <img width="5679" height="6456" alt="hbnb" src="https://github.com/user-attachments/assets/49f2ecce-e54c-43a0-85e9-698b08a7cf0d" />
+
