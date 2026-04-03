@@ -48,3 +48,5 @@ def create_app(config_class="config.DevelopmentConfig"):
     api.add_namespace(auth_ns, path='/api/v1/auth')
 
     return app
+
+print("cc")
