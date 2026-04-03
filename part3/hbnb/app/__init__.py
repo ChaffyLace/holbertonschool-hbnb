@@ -55,3 +55,5 @@ def create_app(config_class="config.DevelopmentConfig"):
         db.create_all()
 
     return app
+
+print("cc")
