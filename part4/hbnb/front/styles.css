@@ -1,0 +1,81 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+.login-button {
+    background-color: #ff5a5f;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+main {
+    padding: 2rem;
+}
+
+#filter {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#places-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.place-card, .review-card {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    
+    background-color: #fff;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.details-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}

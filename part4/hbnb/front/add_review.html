@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Review - HBNB</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="HBNB Logo" class="logo">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="login.html" id="login-link" class="login-button">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="place-identification">
+            <h1>Reviewing: Cozy Apartment</h1>
+        </section>
+
+        <form id="review-form">
+            <h2>Add a Review</h2>
+            
+            <label for="review">Your Review:</label>
+            <textarea id="review" name="review" rows="5" required></textarea>
+            
+            <label for="rating">Rating:</label>
+            <select id="rating" name="rating" required>
+                <option value="" disabled selected>Select a rating (1-5)</option>
+                <option value="5">5 Stars - Excellent</option>
+                <option value="4">4 Stars - Very Good</option>
+                <option value="3">3 Stars - Average</option>
+                <option value="2">2 Stars - Poor</option>
+                <option value="1">1 Star - Terrible</option>
+            </select>
+            
+            <button type="submit">Submit Review</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 HBNB. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
